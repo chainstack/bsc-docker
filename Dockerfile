@@ -1,12 +1,6 @@
-FROM golang:1.16-alpine as builder
+FROM debian:stable-slim
 
-RUN apk add --no-cache make gcc musl-dev linux-headers git
-RUN git clone --depth 1 --branch upgrade_1.10.2 https://github.com/binance-chain/bsc.git /bsc
-RUN cd /bsc && make geth
-
-FROM alpine:latest
-
-RUN apk add --no-cache wget curl procps net-tools htop
-COPY --from=builder /bsc/build/bin/geth /usr/local/bin/
+RUN apt-get update -y && apt-get install wget curl procps net-tools htop -y
+RUN wget --no-check-certificate https://github.com/binance-chain/bsc/releases/download/v1.1.0-beta/geth_linux && chmod 744 geth_linux && mv geth_linux /usr/local/bin/geth
 
 ENTRYPOINT ["geth"]
