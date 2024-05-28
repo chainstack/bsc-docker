@@ -1,6 +1,6 @@
 FROM debian:stable-slim
 
 RUN apt-get update -y && apt-get install wget curl procps net-tools htop -y
-RUN wget --no-check-certificate https://github.com/bnb-chain/bsc/releases/download/v1.4.5/geth_linux && chmod 744 geth_linux && mv geth_linux /usr/local/bin/geth
+RUN wget --no-check-certificate https://github.com/bnb-chain/bsc/releases/download/v1.4.8/geth_linux && chmod 744 geth_linux && mv geth_linux /usr/local/bin/geth
 
 ENTRYPOINT ["geth"]
